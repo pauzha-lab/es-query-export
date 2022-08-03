@@ -21,7 +21,6 @@
   },
   "dependencies": {
     "@elastic/elasticsearch": "^8.2.1",
-    "es-query-export": "^1.0.0",
     "json2csv": "^5.0.7"
   }
 }
