@@ -1,0 +1,22 @@
+{
+  "name": "es-query-export",
+  "version": "1.0.0",
+  "description": "Export elasticsearch query results into json or csv file",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "elasticsearch",
+    "query",
+    "export",
+    "csv",
+    "json"
+  ],
+  "author": "pauzha",
+  "license": "ISC",
+  "dependencies": {
+    "@elastic/elasticsearch": "^8.2.1",
+    "json2csv": "^5.0.7"
+  }
+}
