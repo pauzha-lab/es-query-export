@@ -13,10 +13,15 @@
     "csv",
     "json"
   ],
-  "author": "pauzha",
+  "author": "Pauzha",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pauzha-lab/es-query-export"
+  },
   "dependencies": {
     "@elastic/elasticsearch": "^8.2.1",
+    "es-query-export": "^1.0.0",
     "json2csv": "^5.0.7"
   }
 }

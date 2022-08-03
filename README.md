@@ -5,6 +5,7 @@ Export elasticsearch query results into json or csv file
 ```js
 
 const { Client } = require('@elastic/elasticsearch');
+const esQueryExport = require('es-query-export');
 
 (async () => {
 
