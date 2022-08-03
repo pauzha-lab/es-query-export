@@ -2,6 +2,14 @@
 
 Export elasticsearch query results into json or csv file
 
+## Install
+
+```bash
+npm install es-query-export
+```
+
+## Usage
+
 ```js
 
 const { Client } = require('@elastic/elasticsearch');
