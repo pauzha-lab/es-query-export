@@ -1,6 +1,6 @@
 {
   "name": "es-query-export",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Export elasticsearch query results into json or csv file",
   "main": "index.js",
   "scripts": {
