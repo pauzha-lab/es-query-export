@@ -1,10 +1,13 @@
 'use strict'
 
 const fs = require('fs');
+const EventEmitter = require('events');
 const { AsyncParser } = require('json2csv');
 
-module.exports = class esQueryExport {
+module.exports = class esQueryExport extends EventEmitter {
+
     constructor({ client }) {
+        super()
         this.client = client ? client : null;
     }
 
@@ -24,12 +27,14 @@ module.exports = class esQueryExport {
 
         response_queue.push(response);
 
-        console.log('Total hits - ', response.hits.total.value);
+        this.emit('start', {hits: response.hits.total.value, })
 
         const jsonfile = fs.createWriteStream(filepath, {flags: 'w' });
         const headers = [];
 
         jsonfile.write('[')
+
+        this.emit('start', {hits: response.hits.total.value, filepath })
 
         while (response_queue.length) {
             const body = response_queue.shift();
@@ -53,6 +58,10 @@ module.exports = class esQueryExport {
                 
             });
 
+            const progress_percent = Math.round((results_collected/body.hits.total.value) * 100);
+
+            this.emit('progress', progress_percent);
+
             // check to see if we have collected all of the quotes
             if (body.hits.total.value === results_collected) {
                 break
@@ -70,7 +79,7 @@ module.exports = class esQueryExport {
         jsonfile.write(']');
         jsonfile.end();
 
-        return { hits: results_collected, headers, filepath };
+        this.emit('complete', { hits: results_collected, headers, filepath });
     }
 
     async json2csv(headers, input_file, output_file) {
