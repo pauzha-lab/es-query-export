@@ -27,17 +27,26 @@ const esQueryExport = require('es-query-export');
     });
 
     const exporter = new esQueryExport({ client: esClient });
-    
+
     // download search results as json
-    const result = await exporter.export({
+    exporter.export({
         index: 'index_name',
         query: {
             match: { 'title': 'hello world' }
         },
         filepath: 'output.json'
     });
-    
-    // convert downloaded json to csv
-    await exporter.json2csv(result.headers, 'output.json', 'output.csv')
+    exporter.on('start', (data) => {
+        console.log(data)
+    });
+
+    exporter.on('progress', (percent) => {
+        console.log(percent)
+    });
+
+    // convert downloaded json to csv on complete
+    exporter.on('complete', async ( { headers }) => {
+        await exporter.json2csv(headers, 'output.json', 'output.csv')
+    })
 })();
 ```
