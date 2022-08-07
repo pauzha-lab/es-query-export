@@ -36,8 +36,8 @@ const esQueryExport = require('es-query-export');
         },
         filepath: 'output.json'
     });
-    exporter.on('start', (data) => {
-        console.log(data)
+    exporter.on('start', (hits, filepath) => {
+        console.log("Total hits", hits)
     });
 
     exporter.on('progress', (percent) => {
@@ -45,7 +45,7 @@ const esQueryExport = require('es-query-export');
     });
 
     // convert downloaded json to csv on complete
-    exporter.on('complete', async ( { headers }) => {
+    exporter.on('complete', async ({ hits, headers, filepath }) => {
         await exporter.json2csv(headers, 'output.json', 'output.csv')
     })
 })();

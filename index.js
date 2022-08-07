@@ -27,14 +27,12 @@ module.exports = class esQueryExport extends EventEmitter {
 
         response_queue.push(response);
 
-        this.emit('start', {hits: response.hits.total.value, })
-
         const jsonfile = fs.createWriteStream(filepath, {flags: 'w' });
         const headers = [];
 
         jsonfile.write('[')
 
-        this.emit('start', {hits: response.hits.total.value, filepath })
+        this.emit('start', { hits: response.hits.total.value, filepath })
 
         while (response_queue.length) {
             const body = response_queue.shift();
@@ -62,12 +60,10 @@ module.exports = class esQueryExport extends EventEmitter {
 
             this.emit('progress', progress_percent);
 
-            // check to see if we have collected all of the quotes
             if (body.hits.total.value === results_collected) {
                 break
             }
 
-            // get the next response if there are more quotes to fetch
             response_queue.push(
                 await this.client.scroll({
                     scroll_id: body._scroll_id,
