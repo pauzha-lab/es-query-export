@@ -36,6 +36,8 @@ const esQueryExport = require('es-query-export');
         },
         filepath: 'output.json'
     });
+
+    // Events
     exporter.on('start', (hits, filepath) => {
         console.log("Total hits", hits)
     });
@@ -47,6 +49,7 @@ const esQueryExport = require('es-query-export');
     // convert downloaded json to csv on complete
     exporter.on('complete', async ({ hits, headers, filepath }) => {
         await exporter.json2csv(headers, 'output.json', 'output.csv')
-    })
+    });
+
 })();
 ```
