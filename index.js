@@ -76,6 +76,8 @@ module.exports = class esQueryExport extends EventEmitter {
         jsonfile.end();
 
         this.emit('complete', { hits: results_collected, headers, filepath });
+
+        return { hits: results_collected, headers, filepath };
     }
 
     async json2csv(headers, input_file, output_file) {
