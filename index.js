@@ -85,6 +85,6 @@ module.exports = class esQueryExport extends EventEmitter {
         const output = fs.createWriteStream(output_file);
 
         const asyncParser = new AsyncParser({ fields: headers });
-        asyncParser.fromInput(input).toOutput(output);
+        await asyncParser.fromInput(input).toOutput(output).promise();
     }
 }
